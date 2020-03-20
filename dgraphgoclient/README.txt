@@ -55,3 +55,25 @@ docker run:
 	sudo /etc/init.d/docker status -l
 	sudo docker-compose up -d
 	sudo docker ps -a
+
+
+--- Schema ----
+<name>:string @index(fulltext,term,trigram) @lang . 
+<genre>:[uid] @reverse @count . 
+<film.id>:int @index(int) . 
+<genre.id>:int @index(int) . 
+<film.name>:default . 
+<genre.name>:string . 
+<dgraph.type>:[string] @index(exact) . 
+<released_year>:int @index(int) . 
+type Film {
+	film.name
+	film.id
+	released_year
+	genre
+}
+type Genre {
+	genre.name
+	genre.id
+	genre
+}
